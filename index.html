@@ -1,0 +1,181 @@
+<!DOCTYPE html> <!-- Declara o tipo de documento -->
+<html lang="pt-BR"> <!-- Tag que envolve todo o conteúdo html e o "pt-BR" define a linguagem do conteúdo para português brasileiro (para a página não ficar tentand traduzir toda hora)-->
+<head> <!-- Informações principais que o navegador irá ler, como o título -->
+    <meta charset="UTF-8"> <!-- Define a codificação ("traduz" os acentos para a linguagem do computador) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Faz com que o layout da página seja responsivo em dispositivos móveis -->
+    <title>Avaliação Final</title> <!-- Titulo da página (aparece na aba do navegador) -->
+    <style> /* Parte relacionada ao CSS */
+        body { /* Corpo do site */
+            font-family: 'Arial', sans-serif; /* Fonte padrão da página */
+            background: linear-gradient(to bottom, #333, #111); /* Fundo da página */
+            color: #fff; /* Cor do texto */
+            margin: 0; /* Margem externa da página */
+            padding: 0; /* Preenchimento interno / Distância do elemento até a borda / O "0" remove a margem padrão do corpo da página */
+            display: flex; /* Organização do documento na flexbox */
+            justify-content: center; /* Alinhamento horizontal / Conteúdo justificado ao centro */
+            align-items: center; /* Alinhamento vertical / Alinhamento dos itens no centro */
+            height: 100vh; /* Altura */
+            flex-direction: column; /* Direção da flexbox, em modo coluna */
+        }
+        h1 { /* Texto tamanho h1 / Títulos */
+            background-color: #222; /* Cor de fundo */
+            border-radius: 10px; /* Borda arredondada de 10px */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombreamento da caixa */
+            padding: 20px; /* Preenchimento interno / Distância do elemento até a borda de 20px */
+            color: #4CAF50; /* Cor do texto h1 */
+            text-align: center; /* Alinhamento do texto ao centro */
+            font-size: 2.5rem; /* Tamanho da fonte */
+            border: 2px solid #4CAF50; /* Largura, estilo e cor da borda / Borda cor verde, sólida e de 2px */
+        }
+
+        button { /* Edição dos botões */
+            background-color: #4CAF50; /* Cor de fundo */
+            color: white; /* Cor do texto */
+            padding: 10px 20px; /* Preenchimento interno / Distância do elemento até a borda */
+            border: none; /* Retira a borda */
+            border-radius: 5px; /* Borda arredondada de 5px */
+            cursor: pointer; /* O cursor do mouse vira uma "mãozinha" com o dedo indicador levantado, apontando para o item */
+            transition: background 0.3s ease; /* Efeito de transição do fundo de 0.3s, de maneira "suave" */
+        }
+
+        button:hover { /* Edição ao passar o mouse em cima do botão */
+            background-color: #45a049; /* Cor de fundo do botão ao passar o mouse */
+        }
+
+        input[type="text"] { /* Edição dos inputs tipo texto */
+            padding: 10px; /* Preenchimento interno / Distância do elemento até a borda de 10px */
+            border-radius: 5px; /* Borda arredondada de 5px */
+            border: 1px solid #4CAF50; /* Largura, estilo e cor da borda */
+            outline: none; /* Remove a linha exterior do input */
+            width: 100%; /* Largura do botão em 100% */
+            box-sizing: border-box; /* Caixa do input tipo texto da largura das bordas da página / Ocupa a largura total */
+        }
+
+        input[type="text"]:focus { /* Quando o input está em foco (ao clicar) */
+            border-color: #45a049; /* Adiciona a cor verde nas bordas */
+            box-shadow: 0 0 5px #45a049; /* Adiciona um sombreamento na caixa do input, na cor verde */
+        }
+
+        table { /* Tabela */
+            margin-top: 20px; /* Margem superior de 20px */
+            border-collapse: collapse; /* "Mescla" as bordas superiores e inferiores das linhas da tabela, transformando em uma linha única de divisão */
+            width: 100%; /* Largura da tabela em 100% */
+        }
+
+        th, td { /* Edição geral da célula de cabeçalho e das células da tabela */
+            border: 1px solid #4CAF50; /* Largura, estilo e cor da borda */
+            padding: 10px; /* Preenchimento interno / Distância do elemento até a borda de 10px */
+            text-align: center; /* Alinhamento do texto ao centro */
+        }
+
+        th { /* Edição específica para a célula de cabeçalho */
+            background-color: #4CAF50; /* Cor de fundo */
+            color: white; /* Cor do texto */
+        }
+
+        #drag-container { /* Edição do elemento com a id "drag-container" / Container abaixo da tabela */
+            display: flex; /* Organização do documento na flexbox */ 
+            margin-top: 20px; /* Margem superior do container */
+        }
+        
+        .task { /* Edição dos elementos dentro da class task (tarefas) */
+            padding: 10px; /* Preenchimento interno / Distância do elemento até a borda de 10px */
+            background-color: #4CAF50; /* Cor de fundo */
+            margin-right: 10px; /* Margem a direita de 10px */
+            border-radius: 5px; /* Borda arredondada de 5px */
+            cursor: grab; /* O cursor do mouse vira uma "mãozinha aberta", para puxar o elemento para outro local */
+            color: white; /* Cor do texto */
+            text-align: center; /* Alinhamento do texto ao centro */
+            transition: transform 0.3s ease; /* Efeito de transição, com uma transformação a ser descrita, de 0.3s, de forma suave */
+        }
+
+        .task:hover { /* Edição ao passar o mouse sobre a tarefa */
+            transform: scale(1.1); /* O elemento recebe um zoom ao passar o mouse */ 
+        }
+
+        #drop-area { /* Edição do elemento com a id "drop-area" */
+            width: 200px; /* Largura do elemento */
+            height: 150px; /* Altura do elemento */
+            border: 2px dashed #4CAF50; /* Largura, estilo e cor da borda */
+            border-radius: 10px; /* Borda arredondada */
+            display: flex; /* Organização do documento na flexbox */ 
+            justify-content: center; /* Alinhamento horizontal / Conteúdo justificado ao centro */
+            align-items: center; /* Alinhamento dos itens ao centro */
+            color: #4CAF50; /* Cor do texto */
+        }
+
+        #drop-area.drag-over { /* Edição do elemento com a id "drop-area" ao arrastar uma tarefa para a área do elemento */
+            background-color: rgba(76, 175, 80, 0.1); /* Cor de fundo */
+        }
+    </style> <!-- Fim da edição do CSS -->
+</head> <!-- Fechamento da tag relacionada as meta-informações sobre o documento -->
+<body> <!-- Início do conteúdo visível do site / corpo do site -->
+
+    <h1>Avaliação Final</h1> <!-- Texto tamanho h1 / Título / Primeiro da hierarquia -->
+
+    <input type="text" id="userInput" placeholder="Digite algo..."> <!-- Criação de um input do tipo texto, dentro da id "userInput" e com um texto de fundo escrito "Digite algo..." -->
+    <button onclick="showAlert()">Enviar</button>  <!-- Ao clicar no botão "Enviar" irá aparecer um alerta (a função vai ser determinada no JS) -->
+
+
+    <table id="itemTable" style="display:none;"> <!-- Tabela com id "itemTable" e sem display -->
+        <thead> <!-- Cabeçalho da tabela -->
+            <tr> <!-- Linha da cabeçalho -->
+                <th>Item</th> <!-- Texto da célula dentro da linha do cabeçalho -->
+            </tr> <!-- Fim da linha de cabeçalho -->
+        </thead> <!-- Fim do cabeçalho da tabela -->
+        <tbody id="tableBody"></tbody> <!-- Corpo da tabela, com a id "tableBody" -->
+    </table> <!-- Fim da tabela -->
+
+    <button onclick="showItems()">Mostrar Itens</button> <!-- Botão com o texto "Mostrar Itens", que irá ativar a função "showItems", que será feita no JS -->
+
+
+    <div id="drag-container"> <!-- Itens dentro da divisão com a id "drag-container" -->
+        <div id="task1" class="task" draggable="true" ondragstart="dragStart(event)">Tarefa 1</div> <!-- Elemento dentro da divisão "task1", classe "task", que pode ser movido e ao ser movido da início a uma função do JS (dragStart)-->
+        <div id="task2" class="task" draggable="true" ondragstart="dragStart(event)">Tarefa 2</div> <!-- Elemento dentro da divisão "task2", classe "task", que pode ser movido e ao ser movido da início a uma função do JS (dragStart)-->
+        <div id="task3" class="task" draggable="true" ondragstart="dragStart(event)">Tarefa 3</div> <!-- Elemento dentro da divisão "task3", classe "task", que pode ser movido e ao ser movido da início a uma função do JS (dragStart)-->
+    </div> <!-- Fim da divisão de tarefas -->
+    <div id="drop-area" ondragover="allowDrop(event)" ondrop="dropTask(event)">Arraste aqui</div> <!-- Divisão com a id "drop-area", que permite itens serem movidos para ela e ao serem movidos, inicia a função "dropTask" -->
+
+    <script> // Início dos elementos de JS
+        function showAlert() { // Função para mostrar alerta
+            const userInput = document.getElementById('userInput').value; // Const é uma variável que não muda, vai puxar o dado inserido pelo usuário, o document é para utilizar o DOM e modificar o HTML, através da id "userInput" e vai pegar o "valor" dela
+            if (userInput) { // Função caso seja verdadeiro
+                alert('Você digitou: ' + userInput); // Se o usuário tiver digitado algo, aparecerá um alerta com a frase e em seguida o que foi digitado
+            } else { // O que será feito caso seja falso
+                alert('Por favor, digite algo.'); // Irá enviar um alerta com a frase escrita
+            }
+        }
+        const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']; // Variável com valores que não mudam, com um array de 4 itens
+        function showItems() { // Função para mostrar os itens
+            const table = document.getElementById('itemTable'); // Variavel que não muda, o document edita o HTMl, irá puxar os dados do elemento com Id "itemTable"
+            const tableBody = document.getElementById('tableBody'); // Variavel que não muda, o document edita o HTMl, irá puxar os dados do elemento com Id "tableBody"
+            tableBody.innerHTML = ''; // Altera o conteúdo de HTML do elemento / Limpa a tabela antes de continuar   
+            items.forEach(item => { // Executa uma função para cada elemento do array
+                const row = document.createElement('tr'); // Criação de linhas, editando o HTML
+                const cell = document.createElement('td'); // Criação de células, editando  HTML
+                cell.textContent = item; // Modifica o texto dentro do elemento
+                row.appendChild(cell); // Adiciona um novo elemento como um "filho" da cell
+                tableBody.appendChild(row); // Adiciona um novo elemento como um "filho" da row
+            });
+            table.style.display = 'table'; // Estilo de disposição da tabela
+        }
+
+        function allowDrop(event) { // Função para permitir "dropar" itens
+            event.preventDefault(); // Cancela eventos que poderiam ocorrer para iniciar o evento descrito posteriormente 
+            const dropArea = document.getElementById('drop-area'); // Variável que não muda (dropArea), edição do HTML, puxando o element com a Id "drop-area"
+            dropArea.classList.add('drag-over'); // Adiciona o elemento a lista "drag-over"
+        }
+        function dragStart(event) { // Função para iniciar a ação de arrastar itens
+            event.dataTransfer.setData('text', event.target.id); // Armazena os dados de texto de acordo com o id escolhido
+        }
+        function dropTask(event) { // Função para dropar os itens
+            event.preventDefault(); // Cancela eventos que poderiam ocorrer para iniciar o evento descrito posteriormente
+            const taskId = event.dataTransfer.getData('text'); // Analise e transfere os dados de texto da "taskId"
+            const task = document.getElementById(taskId); // Modifica o HTML, com base no Id "taskId"
+            const dropArea = document.getElementById('drop-area'); // Edita o HTML, pega o elemento pelo Id "drop-area"
+            dropArea.appendChild(task); // Adiciona um novo elemento como um "filho" da task
+            dropArea.classList.remove('drag-over'); // Remove o elemento da lista "drag-over"
+        }
+    </script> <!-- Fim da edição em JS -->
+</body> <!-- Fim do corpo do site / parte visível -->
+</html> <!-- Fim do documento html -->
